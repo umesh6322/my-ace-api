@@ -1,7 +1,7 @@
 info:
   version: 1.0.0
-  title: hello
-  name: hello
+  title: umesh
+  name: umesh
 gateways:
   - datapower-api-gateway
 plans:
