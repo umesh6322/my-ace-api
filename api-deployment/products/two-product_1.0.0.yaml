@@ -1,0 +1,39 @@
+info:
+  version: 1.0.0
+  title: two-product
+  name: two-product
+gateways:
+  - datapower-api-gateway
+plans:
+  default-plan:
+    title: Default Plan
+    description: Default Plan
+    rate-limits:
+      default:
+        value: 100/1hour
+    apis:
+      product: {}
+      one: {}
+      two: {}
+      hello-world: {}
+apis:
+  product:
+    $ref: product_1.0.0.yaml
+  one:
+    $ref: one_1.0.0.yaml
+  two:
+    $ref: two_1.0.0.yaml
+  hello-world:
+    $ref: hello-world_1.0.0.yaml
+visibility:
+  view:
+    type: public
+    orgs: []
+    tags: []
+    enabled: true
+  subscribe:
+    type: authenticated
+    orgs: []
+    tags: []
+    enabled: true
+product: 1.0.0
