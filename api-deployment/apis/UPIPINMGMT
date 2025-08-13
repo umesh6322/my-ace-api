@@ -1,0 +1,128 @@
+swagger: '2.0'
+info:
+  title: UPIPINMGMT-V1
+  x-ibm-name: upipinmgmt-v1
+  version: 1.0.0
+x-ibm-configuration:
+  cors:
+    enabled: false
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - operation-switch:
+          version: 2.0.0
+          title: operation-switch
+          case:
+            - operations:
+                - verb: get
+                  path: /getaccountupipinstatus/V1
+                - verb: post
+                  path: /getaccountupipinstatus/V1
+              execute:
+                - invoke:
+                    version: 2.2.0
+                    title: invoke
+                    backend-type: detect
+                    header-control:
+                      type: blocklist
+                      values: []
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    http-version: HTTP/1.1
+                    timeout: 60
+                    verb: keep
+                    chunked-uploads: true
+                    persistent-connection: true
+                    cache-response: protocol
+                    cache-ttl: 900
+                    stop-on-error: []
+                    graphql-send-type: detect
+                    websocket-upgrade: false
+                    target-url: >-
+                      https://prod.kc.indusind.com/api/ibl-kc-attestation/getaccountupipinstatus/v2?accountid={accountid}
+            - operations:
+                - verb: post
+                  path: /setaccountupistatus/V1
+              execute:
+                - invoke:
+                    version: 2.2.0
+                    title: invoke
+                    backend-type: detect
+                    header-control:
+                      type: blocklist
+                      values: []
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    http-version: HTTP/1.1
+                    timeout: 60
+                    verb: keep
+                    chunked-uploads: true
+                    persistent-connection: true
+                    cache-response: protocol
+                    cache-ttl: 900
+                    stop-on-error: []
+                    graphql-send-type: detect
+                    websocket-upgrade: false
+                    target-url: >-
+                      https://prod.kc.indusind.com/api/ibl-kc-attestation/setaccountupistatus/v2
+          otherwise: []
+    catch: []
+    finally: []
+  properties:
+    target-url:
+      value: http://example.com/operation-name
+      description: The URL of the target service
+      encoded: false
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+basePath: /upipinmgmt
+paths:
+  /getaccountupipinstatus/V1:
+    get:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      parameters:
+        - name: accountid
+          in: query
+          type: string
+    parameters: []
+    post:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+  /setaccountupistatus/V1:
+    post:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+schemes:
+  - https
+securityDefinitions:
+  IBL-Client-Id:
+    type: apiKey
+    name: IBL-Client-Id
+    x-key-type: client_id
+    in: header
+  IBL-Client-Secret:
+    type: apiKey
+    name: IBL-Client-Secret
+    x-key-type: client_secret
+    in: header
+security:
+  - IBL-Client-Id: []
+    IBL-Client-Secret: []
