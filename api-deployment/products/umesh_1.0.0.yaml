@@ -14,8 +14,8 @@ plans:
     apis:
       hello-world: {}
 apis:
-  umesh:
-    $ref: ../apis/umesh_1.0.0.yaml
+  hello-world:
+    $ref: ../apis/hello-world_1.0.0.yaml
 visibility:
   view:
     type: public
