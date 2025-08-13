@@ -1,0 +1,52 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: getCifonMobNum-ace-internal
+  x-ibm-name: getcifonmobnum-ace-internal
+basePath: /api/Indus-auth-enquiry-services
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: >-
+        https://prod.kc.indusind.com/api/Indus-auth-enquiry-services/indusauth/getCifonMobNum/V1
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: true
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - invoke:
+          title: invoke
+          version: 2.0.0
+          verb: keep
+          target-url: $(target-url)
+          follow-redirects: false
+          timeout: 60
+          parameter-control:
+            type: allowlist
+            values: []
+          header-control:
+            type: blocklist
+            values: []
+          inject-proxy-headers: true
+          persistent-connection: true
+    finally: []
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+paths:
+  /indusauth/getCifonMobNum/V1:
+    post:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+schemes:
+  - https

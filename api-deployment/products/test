@@ -1,7 +1,7 @@
 info:
   version: 1.0.0
-  title: umesh
-  name: umesh
+  title: TEST
+  name: test
 gateways:
   - datapower-api-gateway
 plans:
@@ -12,10 +12,10 @@ plans:
       default:
         value: 100/1hour
     apis:
-      hello-world: {}
+      upipinmgmt-v11.0.0: {}
 apis:
-  hello-world:
-    $ref: ../apis/hello-world_1.0.0.yaml
+  upipinmgmt-v11.0.0:
+    $ref: upipinmgmt-v1_1.0.0.yaml
 visibility:
   view:
     type: public
