@@ -16,9 +16,9 @@ plans:
       two: {}
 apis:
   one:
-    $ref: ../apis/one_1.0.0.yaml
+    $ref: one_1.0.0.yaml
   two:
-    $ref: ../apis/two_1.0.0.yaml
+    $ref: two_1.0.0.yaml
 visibility:
   view:
     type: public
