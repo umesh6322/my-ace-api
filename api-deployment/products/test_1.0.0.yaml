@@ -15,7 +15,7 @@ plans:
       upipinmgmt-v11.0.0: {}
 apis:
   upipinmgmt-v11.0.0:
-    $ref: /apis/upipinmgmt-v1_1.0.0.yaml
+    $ref: ../apis/upipinmgmt-v1_1.0.0.yaml
 visibility:
   view:
     type: public
