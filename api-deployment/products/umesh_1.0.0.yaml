@@ -15,7 +15,7 @@ plans:
       hello-world: {}
 apis:
   hello-world:
-    $ref: ../apis/hello-world_1.0.0.yaml
+    $ref: hello-world_1.0.0.yaml
 visibility:
   view:
     type: public
