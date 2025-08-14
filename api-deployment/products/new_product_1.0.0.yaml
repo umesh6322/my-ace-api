@@ -18,13 +18,13 @@ plans:
       product: {}
 apis:
   hello-world:
-    $ref: ../apis/hello-world_1.0.0.yaml
+    $ref: hello-world_1.0.0.yaml
   one:
-    $ref: ../apis/one_1.0.0.yaml
+    $ref: one_1.0.0.yaml
   two:
-    $ref: ../apis/two_1.0.0.yaml
+    $ref: two_1.0.0.yaml
   product:
-    $ref: ../apis/product_1.0.0.yaml
+    $ref: product_1.0.0.yaml
 visibility:
   view:
     type: public
