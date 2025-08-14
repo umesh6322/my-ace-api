@@ -17,8 +17,6 @@ plans:
       two: {}
       hello-world: {}
 apis:
-  product:
-    $ref: product_1.0.0.yaml
   one:
     $ref: one_1.0.0.yaml
   two:
