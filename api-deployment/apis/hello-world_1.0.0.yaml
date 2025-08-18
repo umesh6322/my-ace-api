@@ -89,12 +89,6 @@ paths:
             type: string
       consumes: []
       produces: []
-securityDefinitions:
-  clientID:
-    type: apiKey
-    in: header
-    name: X-IBM-Client-Id
-security:
-  - clientID: []
+securityDefinitions: {}
 schemes:
   - https
