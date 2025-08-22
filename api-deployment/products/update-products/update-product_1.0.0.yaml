@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 apis:
   update-api1.0.0:
-    $ref: update-api_1.0.0.yaml
+     $ref: ../../apis/update-apis/update-api_1.0.0.yaml
 gateways:
   - datapower-api-gateway
 plans:
