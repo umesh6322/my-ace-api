@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 apis:
   hello1.0.0:
-    $ref: ../apis/new-apis/hello_1.0.0.yaml
+    $ref: ../apis/hello_1.0.0.yaml
 gateways:
   - datapower-api-gateway
 plans:
