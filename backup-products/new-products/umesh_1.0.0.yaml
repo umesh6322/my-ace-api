@@ -1,10 +1,10 @@
 info:
-  title: update-product
-  name: update-product
+  title: umesh
+  name: umesh
   version: 1.0.0
 apis:
-  update-api1.0.0:
-    $ref: update-api_1.0.0.yaml
+  hello1.0.0:
+    $ref: ../apis/new-apis/hello_1.0.0.yaml
 gateways:
   - datapower-api-gateway
 plans:
@@ -16,7 +16,7 @@ plans:
       default:
         value: 100/1hour
     apis:
-      update-api1.0.0: {}
+      hello1.0.0: {}
 product: 1.0.0
 visibility:
   view:
