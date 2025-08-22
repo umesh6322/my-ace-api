@@ -1,0 +1,275 @@
+swagger: '2.0'
+info:
+  title: IMPS(V2)(EPH)
+  version: 1.0.0
+  x-ibm-name: imps
+schemes:
+  - https
+produces:
+  - application/json
+consumes:
+  - application/json
+paths:
+  /payments/initiate/v2:
+    post:
+      summary: ''
+      operationId: post-payments-initiate-v2
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              createRealTimePaymentResponse:
+                type: object
+                properties:
+                  pymntDetails:
+                    type: object
+                    properties:
+                      beneficiaryName:
+                        type: string
+                  messageResponse:
+                    type: object
+                    properties:
+                      transactionPosType:
+                        type: integer
+                      transactionPosNumber:
+                        type: integer
+                      endToEndReference:
+                        type: string
+                      successFlag:
+                        type: integer
+                      reasonCode:
+                        type: string
+                      reasonDescription:
+                        type: string
+            x-examples:
+              example-1:
+                createRealTimePaymentResponse:
+                  pymntDetails:
+                    beneficiaryName: ABCD Test Automate
+                  messageResponse:
+                    transactionPosType: 1625
+                    transactionPosNumber: 81465
+                    endToEndReference: '210911075790'
+                    successFlag: 1
+                    reasonCode: '00'
+                    reasonDescription: Transaction Approved
+      parameters:
+        - type: string
+          in: header
+          name: entity
+        - in: body
+          name: body
+          schema:
+            type: object
+            x-examples:
+              example-1:
+                createRealTimePaymentRequest:
+                  actionFlag: '2'
+                  messageHeader:
+                    messageType: '1'
+                    channelID: '20127'
+                    schemeID: '3'
+                    requestType: '3'
+                    serviceName: RealTimePaymentService
+                    messageID: S2340
+                  remDetails:
+                    orderingCustomerAccount: '159867878999'
+                    orderingCustomerName: ASHISH MORE
+                    productType: '22'
+                    orderPartyReferenceType1: '1'
+                    orderPartyReference1: '9914000'
+                    orderPartyReferenceType2: '2'
+                    orderPartyReference2: '9818510028'
+                  pymntDetails:
+                    beneficiaryName: ABCD Test Automate
+                    beneficiaryAccount: '1000000013'
+                    beneficiaryAddressLine1: ''
+                    beneficiaryAddressLine2: ''
+                    beneficiaryAddressLine3: ''
+                    beneficiaryAddressLine4: ''
+                    transactionAmount: '101'
+                    transactionCurrency: INR
+                    beneficiaryBankReference: CITI0000029
+                    beneficiaryBankReferenceType: '12'
+                    beneficiaryReferenceType: ''
+                    beneficiaryReference: ''
+                    additionalBeneficiaryReferenceType: ''
+                    additionalBeneficiaryReference: ''
+            properties:
+              createRealTimePaymentRequest:
+                type: object
+                properties:
+                  actionFlag:
+                    type: string
+                    maxLength: 2
+                  messageHeader:
+                    type: object
+                    required:
+                      - messageType
+                      - channelId
+                      - schemeID
+                      - requestType
+                      - serviceName
+                      - messageID
+                    properties:
+                      messageType:
+                        type: string
+                        maxLength: 5
+                      channelId:
+                        type: string
+                        maxLength: 20
+                      schemeID:
+                        type: string
+                        maxLength: 8
+                      requestType:
+                        type: string
+                        maxLength: 8
+                      serviceName:
+                        type: string
+                        maxLength: 70
+                      messageID:
+                        type: string
+                        maxLength: 35
+                  remDetails:
+                    type: object
+                    properties:
+                      orderingCustomerAccount:
+                        type: string
+                        maxLength: 35
+                      orderingCustomerName:
+                        type: string
+                      productType:
+                        type: string
+                        maxLength: 70
+                      orderPartyReferenceType1:
+                        type: string
+                        maxLength: 35
+                      orderPartyReference1:
+                        type: string
+                      orderPartyReferenceType2:
+                        type: string
+                        maxLength: 10
+                      orderPartyReference2:
+                        type: string
+                    required:
+                      - orderingCustomerAccount
+                  pymntDetails:
+                    type: object
+                    properties:
+                      beneficiaryName:
+                        type: string
+                        maxLength: 35
+                      beneficiaryAccount:
+                        type: string
+                        maxLength: 70
+                      beneficiaryAddressLine1:
+                        type: string
+                        maxLength: 70
+                      beneficiaryAddressLine2:
+                        type: string
+                        maxLength: 70
+                      beneficiaryAddressLine3:
+                        type: string
+                        maxLength: 70
+                      beneficiaryAddressLine4:
+                        type: string
+                        maxLength: 70
+                      transactionAmount:
+                        type: string
+                      transactionCurrency:
+                        type: string
+                        maxLength: 20
+                      beneficiaryBankReference:
+                        type: string
+                        maxLength: 20
+                      beneficiaryBankReferenceType:
+                        type: string
+                        maxLength: 35
+                      beneficiaryReferenceType:
+                        type: string
+                        maxLength: 20
+                      beneficiaryReference:
+                        type: string
+                        maxLength: 35
+                      additionalBeneficiaryReferenceType:
+                        type: string
+                        maxLength: 9
+                      additionalBeneficiaryReference:
+                        type: string
+                        maxLength: 35
+                    required:
+                      - transactionAmount
+                      - transactionCurrency
+                      - beneficiaryBankReference
+                      - beneficiaryBankReferenceType
+                required:
+                  - actionFlag
+definitions: {}
+basePath: /PaymentServices-IN/realTimePayments
+x-ibm-configuration:
+  enforced: true
+  testable: true
+  phase: realized
+  cors:
+    enabled: false
+  assembly:
+    execute:
+      - parse:
+          version: 2.1.0
+          title: parse
+          parse-settings-reference:
+            default: apic-default-parsesettings
+      - gatewayscript:
+          version: 2.0.0
+          title: decryption
+          source: "var jose = require('jose');\r\nvar privateKey = 'indus-privatekey'; //referring  private key\r\nif (privateKey != null) {\r\n   context.request.body.readAsJSON(function (error, json) {\r\n      if (error) {\r\n         context.reject('CustomError', 'Request not in JSON');\r\n      } else {\r\n         var data = json.data\r\n         var bit = json.bit\r\n         var jweobj = jose.parse(json.key);\r\n         jweobj.setKey(privateKey);\r\n         jose.createJWEDecrypter(jweobj).decrypt(function (error, symmetricKey) { //decrypt the symmetric key using private key\r\n            if (error) {\r\n               context.reject('CustomError', 'JWE Decryption Failed with Certificate');\r\n            } else {\r\n                var aesHexKey\r\n               if (bit == 0){aesHexKey = symmetricKey}\r\n               if (bit == 1){aesHexKey = symmetricKey.toString('hex');}\r\n               context.set(\"mySymmetricKey\", aesHexKey);\r\n               var jweobj = jose.parse(data);\r\n               jweobj.setKey('hex:' + aesHexKey);\r\n               jose.createJWEDecrypter(jweobj).decrypt(function (error, plaintext) { //decrypt the payload\r\n                     if (error) {\r\n                        context.reject('CustomError', 'JWE Decryption Failed with AES Key');\r\n                     } else {\r\n                        var decryptedJson = json\r\n                        decryptedJson = JSON.parse(plaintext.toString());\r\n                        context.message.body.write(decryptedJson);\r\n                     }\r\n                  });\r\n            }\r\n         });\r\n      }\r\n   });\r\n}"
+      - invoke:
+          version: 2.2.0
+          title: invoke
+          backend-type: detect
+          header-control:
+            type: blocklist
+            values: []
+          parameter-control:
+            type: allowlist
+            values: []
+          http-version: HTTP/1.1
+          timeout: 60
+          verb: keep
+          chunked-uploads: true
+          persistent-connection: true
+          cache-response: protocol
+          cache-ttl: 900
+          stop-on-error: []
+          graphql-send-type: detect
+          websocket-upgrade: false
+          target-url: $(impseph)/PaymentServices-IN/realtimepayments/rest/v14/rtp-create_1
+          description: https://impsocp-eph.indusind.com
+      - gatewayscript:
+          version: 2.0.0
+          title: Encryption
+          source: "var jose = require('jose');\r\nvar jweHdr = jose.createJWEHeader('A256GCM'); //supported algorithm for encryption\r\nvar mySymmetricKey = context.get('mySymmetricKey');\r\njweHdr.setProtected('alg', 'A256KW');\r\njweHdr.setKey('hex:' + mySymmetricKey);\r\ncontext.message.body.readAsJSON(function (error, json) {\r\n         if (error) {\r\n            context.reject('CustomError', 'Response not in JSON');\r\n         } else{\r\n            var _my_json_string = JSON.stringify(json);\r\n            let _my_json_buffer = new Buffer(_my_json_string);\r\n            jose.createJWEEncrypter(jweHdr).update(_my_json_buffer).encrypt('compact', function (error, jweObj) {\r\n               if (error) {\r\n                  context.reject('CustomError', 'JWE Encryption Failed');\r\n               } else {\r\n                  context.message.body.write({\"data\": jweObj});\r\n               }\r\n            }\r\n            );\r\n         }\r\n      }\r\n);"
+    catch: []
+    finally: []
+  type: rest
+  gateway: datapower-api-gateway
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+securityDefinitions:
+  IBL-Client-Id:
+    type: apiKey
+    name: IBL-Client-Id
+    x-key-type: client_id
+    in: header
+  IBL-Client-Secret:
+    type: apiKey
+    name: IBL-Client-Secret
+    x-key-type: client_secret
+    in: header
+security:
+  - IBL-Client-Id: []
+    IBL-Client-Secret: []
